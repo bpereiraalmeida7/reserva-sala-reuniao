@@ -20,19 +20,21 @@
           <td>{{colaborador.email}}</td>
           <td>{{colaborador.telefone}}</td>
           <td class="text-center edit-block">
-            <span class="edit" [routerLink]="['/edit-employee/', employee._id]">
+            <span class="edit" [routerLink]="['/colaborador-edit/', colaborador._id]">
               <button type="button" class="btn btn-success btn-sm">Edit</button>
             </span>
-            <span class="delete" (click)="removeEmployee(employee, i)">
+            <span class="delete" (click)="removerColaborador(colaborador, i)">
               <button type="button" class="btn btn-danger btn-sm">Delete</button>
             </span>
           </td>
         </tr>
       </tbody>
     </table> -->
-
-    <table class="table table-bordered">
-        <thead class="table-info">
+    <div class="d-flex flex-column flex-md-row align-items-center pb-5 px-md-1 mb-3">
+      <a class="btn btn-primary"  routerLink="/colaborador-create">Adicionar</a>
+    </div>
+    <table datatable [dtOptions]="dtOptions" class="table table-bordered">
+        <thead class="table-head">
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Nome</th>
@@ -48,14 +50,28 @@
             <td>joao@teknisa.com</td>
             <td>333-3322</td>
             <td class="text-center edit-block">
-              <span class="edit" [routerLink]="['']">
-                <button type="button" class="btn btn-success btn-sm">Edit</button>
+              <span class="edit">
+                <button type="button" class="btn btn-success btn-sm">Editar</button>
               </span>
-              <span class="delete" (click)="removeEmployee()">
-                <button type="button" class="btn btn-danger btn-sm">Delete</button>
+              <span class="delete" (click)="removerColaborador()">
+                <button type="button" class="btn btn-danger btn-sm">Deletar</button>
               </span>
             </td>
           </tr>
+          <tr >
+              <th scope="row">2</th>
+              <td>Maria</td>
+              <td>joao@teknisa.com</td>
+              <td>333-3322</td>
+              <td class="text-center edit-block">
+                <span class="edit">
+                  <button type="button" class="btn btn-success btn-sm">Editar</button>
+                </span>
+                <span class="delete" (click)="removerColaborador()">
+                  <button type="button" class="btn btn-danger btn-sm">Deletar</button>
+                </span>
+              </td>
+            </tr>
         </tbody>
       </table>
   </div>

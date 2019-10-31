@@ -6,7 +6,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
+body{
+  background: #125699;
+}
   h1,
   h2,
   h3,

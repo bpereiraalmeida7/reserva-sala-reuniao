@@ -24,12 +24,12 @@ export class ApiService {
   }
 
   // Retornar todos os Colaboradores
-  getEmployees() {
+  getColaboradores() {
     return this.http.get(`${this.baseUri}`);
   }
 
   // Mostrar um determinado Colaborador
-  getEmployee(id): Observable<any> {
+  getColaborador(id): Observable<any> {
     let url = `${this.baseUri}/read/${id}`;
     return this.http.get(url, {headers: this.headers}).pipe(
       map((res: Response) => {
@@ -40,7 +40,7 @@ export class ApiService {
   }
 
   // Atualizar Colaborador
-  updateEmployee(id, data): Observable<any> {
+  updateColaborador(id, data): Observable<any> {
     let url = `${this.baseUri}/update/${id}`;
     return this.http.put(url, data, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
