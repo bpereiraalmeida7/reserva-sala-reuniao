@@ -17,7 +17,6 @@ export class ColaboradorListComponent implements OnInit {
     this.dtOptions = {
       pagingType: 'full_numbers',
       responsive: true,
-      search: 2,
       language: {
         processing: "Procesando...",
         search: "Buscar:",
