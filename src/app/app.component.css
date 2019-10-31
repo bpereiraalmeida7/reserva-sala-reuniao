@@ -145,6 +145,10 @@ body{
     z-index: -10;
   }
 
+  .a-button-sala{
+    color: #fff;
+  }
+
   a,
   a:visited,
   a:hover {
@@ -153,7 +157,7 @@ body{
   }
 
   a:hover {
-    color: #125699;
+    color: #fff;
   }
 
   .terminal {

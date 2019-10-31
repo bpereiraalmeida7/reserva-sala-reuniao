@@ -11,13 +11,19 @@ import { ColaboradorEditComponent } from './colaborador/colaborador-edit/colabor
 import { ColaboradorListComponent } from './colaborador/colaborador-list/colaborador-list.component';
 import { ApiService } from './service/api.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SalasCreateComponent } from './salas/salas-create/salas-create.component';
+import { SalasEditComponent } from './salas/salas-edit/salas-edit.component';
+import { SalasListComponent } from './salas/salas-list/salas-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ColaboradorCreateComponent,
     ColaboradorEditComponent,
-    ColaboradorListComponent
+    ColaboradorListComponent,
+    SalasCreateComponent,
+    SalasEditComponent,
+    SalasListComponent
   ],
   imports: [
     BrowserModule,

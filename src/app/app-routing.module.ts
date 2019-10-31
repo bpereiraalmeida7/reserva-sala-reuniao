@@ -4,6 +4,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { ColaboradorCreateComponent } from './colaborador/colaborador-create/colaborador-create.component';
 import { ColaboradorEditComponent } from './colaborador/colaborador-edit/colaborador-edit.component';
 import { ColaboradorListComponent } from './colaborador/colaborador-list/colaborador-list.component';
+import { SalasListComponent } from './salas/salas-list/salas-list.component';
+import { SalasEditComponent } from './salas/salas-edit/salas-edit.component';
+import { SalasCreateComponent } from './salas/salas-create/salas-create.component';
 
 
 const routes: Routes = [
@@ -11,6 +14,10 @@ const routes: Routes = [
   { path: 'colaborador-create', component: ColaboradorCreateComponent },
   { path: 'colaborador-edit/:id', component: ColaboradorEditComponent },
   { path: 'colaborador-list', component: ColaboradorListComponent },
+
+  { path: 'salas-create', component: SalasCreateComponent },
+  { path: 'salas-edit/:id', component: SalasEditComponent },
+  { path: 'salas-list', component: SalasListComponent },
 
 ];
 
