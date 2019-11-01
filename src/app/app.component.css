@@ -18,6 +18,10 @@ body{
     margin: 8px 0;
   }
 
+  .h5-logo{
+    cursor: pointer;
+  }
+
   p {
     margin: 0;
   }
@@ -146,7 +150,8 @@ body{
   }
 
   .a-button-sala{
-    color: #fff;
+    color: #24292e;
+    border:none;
   }
 
   a,
