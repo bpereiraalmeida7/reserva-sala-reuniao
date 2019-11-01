@@ -17,7 +17,7 @@ export class ApiService {
   // Criar Colaborador
   createEmployee(data): Observable<any> {
     let url = `${this.baseUri}/create`;
-    return this.http.post(url, data)
+    return this.http.post(url, data, {headers: this.headers})
       .pipe(
         catchError(this.errorMgmt)
       )

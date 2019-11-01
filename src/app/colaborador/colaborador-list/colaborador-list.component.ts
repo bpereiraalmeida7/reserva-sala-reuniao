@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './../../service/api.service';
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-colaborador-list',
@@ -10,6 +11,8 @@ export class ColaboradorListComponent implements OnInit {
 
   colaboradores: any = [];
   dtOptions: DataTables.Settings = {};
+  faEdit = faEdit;
+  faTrashAlt = faTrashAlt;
 
   constructor(private apiService: ApiService) { }
 
