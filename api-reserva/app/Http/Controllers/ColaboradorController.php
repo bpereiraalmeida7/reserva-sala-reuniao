@@ -16,7 +16,7 @@ class ColaboradorController extends Controller
         /* $colaboradores = Colaborador::get();
         return response()->json($colaboradores); */
 
-        $file = fopen('../storage/app/colaboradores.json', 'r');
+        $file = fopen('../database/colaboradores.json', 'r');
         $line = fgets($file);
         
         return $line;
