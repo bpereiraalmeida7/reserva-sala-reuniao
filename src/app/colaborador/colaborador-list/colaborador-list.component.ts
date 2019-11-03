@@ -43,12 +43,13 @@ export class ColaboradorListComponent implements OnInit {
         }
       }
     };
-   // this.listaColaboradores()
+    this.listaColaboradores()
   }
 
   listaColaboradores(){
     this.apiService.getColaboradores().subscribe((data) => {
      this.colaboradores = data;
+     console.log(this.colaboradores);
     })    
   }
 

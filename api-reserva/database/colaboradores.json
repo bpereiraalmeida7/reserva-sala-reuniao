@@ -1,1 +1,1 @@
-[{"Colaborador": { "nome": "João"} }]
+[{"_id":"1", "nome": "João", "email": "joao@teknisa.com", "telefone": "333"}, {"_id":"2", "nome": "João", "email": "joao@teknisa.com", "telefone": "333"}]

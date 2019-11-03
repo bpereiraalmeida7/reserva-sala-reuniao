@@ -20,7 +20,7 @@ export class ColaboradorEditComponent implements OnInit {
   ngOnInit() {
     this.atualizaColaborador();
     let id = this.actRoute.snapshot.paramMap.get('id');
-    //this.mostraColaborador(id);
+    this.mostraColaborador(id);
     this.editForm = this.fb.group({
       nome: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],

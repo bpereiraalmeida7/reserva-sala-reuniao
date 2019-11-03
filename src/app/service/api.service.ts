@@ -25,12 +25,12 @@ export class ApiService {
 
   // Retornar todos os Colaboradores
   getColaboradores() {
-    return this.http.get(`${this.baseUri}`);
+    return this.http.get(`${this.baseUri}/colaboradores`);
   }
 
   // Mostrar um determinado Colaborador
   getColaborador(id): Observable<any> {
-    let url = `${this.baseUri}/read/${id}`;
+    let url = `${this.baseUri}/colaborador/${id}`;
     return this.http.get(url, {headers: this.headers}).pipe(
       map((res: Response) => {
         return res || {}

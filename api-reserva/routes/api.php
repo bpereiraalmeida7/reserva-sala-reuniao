@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/colaboradores', 'ColaboradorController@index');
 Route::get('/colaborador/{id}', 'ColaboradorController@show');
+Route::delete('/colaborador-del/{id}', 'ColaboradorController@destroy');
