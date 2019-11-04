@@ -19,4 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/colaboradores', 'ColaboradorController@index');
 Route::get('/colaborador/{id}', 'ColaboradorController@show');
+Route::post('/colaborador-post', 'ColaboradorController@store');
+Route::put('/colaborador-up/{id}', 'ColaboradorController@update');
 Route::delete('/colaborador-del/{id}', 'ColaboradorController@destroy');

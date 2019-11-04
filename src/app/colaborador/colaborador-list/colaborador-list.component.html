@@ -53,12 +53,12 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let colaborador of colaboradores; let i = index">
-                      <th scope="row">{{colaborador._id}}</th>
+                      <th scope="row">{{colaborador.id}}</th>
                       <td>{{colaborador.nome}}</td>
                       <td>{{colaborador.email}}</td>
                       <td>{{colaborador.telefone}}</td>
                       <td class="text-left edit-block">
-                        <span class="edit" [routerLink]="['/colaborador-edit/', colaborador._id]">
+                        <span class="edit" [routerLink]="['/colaborador-edit/', colaborador.id]">
                           <button type="button" class="btn btn-success btn-sm">Editar <fa-icon [icon]="faEdit"></fa-icon></button>
                         </span>
                         <span class="delete" (click)="removerColaborador(colaborador, i)">

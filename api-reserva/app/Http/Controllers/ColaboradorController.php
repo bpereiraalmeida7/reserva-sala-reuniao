@@ -4,74 +4,137 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use App\Colaborador;
-use DB;
-use Storage;
-use App\Json;
+use Colaborador;
+use App\Services\LaraFirebase;
+use Coderatio\PhpFirebase\PhpFirebase;
+use Illuminate\Http\Response;
 
 
 class ColaboradorController extends Controller
 {
+    protected $pfb;
+
+    public function __construct()
+    {
+        $this->pfb = new LaraFirebase('\secret\reserva-541fd-c721e9b11e48.json');
+        $this->pfb->setTable('colaboradores');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $colaboradores = Colaborador::get();
-        return response()->json($colaboradores);
-
-        /* $file = fopen('../database/colaboradores.json', 'r');
-        $line = fgets($file); */
-
-        return $line;
+        $this->checkInternetConnection();
+        return response()->json([
+            'connected' => true,
+            'colaboradores' => $this->pfb->getRecords()
+        ]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        try{
+            $this->checkInternetConnection();
+            $insertRecord = $this->pfb->insertRecord([
+                'nome' => $request->nome,
+                'email' => $request->email,
+                'telefone' => $request->email,
+                'date' => now()->toDateTimeString()
+            ], true);
+
+            return response()->json([
+                'connected' => true,
+                'colaboradores' => $insertRecord
+            ]);
+        }catch (Exception $e){
+            return $e->getMessage();
+        }
+        
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function show($id)
     {
-       /*  $colaborador = Colaborador::findOrFail($id);
-        return response()->json($colaborador); */
-
-        $file = fopen('../database/colaboradores.json', 'r');
-        $line = fgets($file);
-        $json = json_decode($line, true);
-        foreach($json as $item){
-            if ($item['_id'] == $id){
-                $dados = $item;
-                break;
-            }
-        }
-
-        return $dados;
+        $this->checkInternetConnection();
+        return response()->json($this->pfb->getRecord($id));
     }
 
-    public function destroy($id)
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request)
     {
-        /* $file = fopen('../database/colaboradores.json', 'r+');
-        $line = fgets($file);
-        $json = json_decode($line, true);
-        foreach($json as $item){
-            if ($item['_id'] == $id){
-                $dados = $item;
-                $line->unset($item);
-                break;
-            }
-            //$dados->forget($dados);
-        } */
+        $this->checkInternetConnection();
+        return response()->json([
+            'connected' => true,
+            'colaboradores' => $this->pfb->getRecord($request->colaboradorId)
+        ]);
+    }
 
-        $contents = Storage::get('colaboradores.json');
-        $json = json_decode($contents, true);
-        foreach($json as $item){
-            if ($item['id'] == 2){
-                $dados = $item['id'];
-                $contents->delete((int)$dados);
-                break;
-            }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function update($id, Request $request)
+    {
+        dd('$request->name');
+        $this->checkInternetConnection();
+        $colaborador = $this->pfb->updateRecord($id, [
+            'nome' => $request->nome,
+            'email' => $request->email,
+            'telefone' => $request->email,
+            'date' => now()->toDateTimeString()
+        ]);
 
+        return response()->json($colaborador);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function destroy(Request $request)
+    {
+        $this->checkInternetConnection();
+        $this->pfb->deleteRecord($request->colaboradorId);
+         return response()->json([
+             'connected' => true,
+             'colaboradores' => $this->pfb->getRecords()
+         ]);
+    }
+
+    public function checkInternetConnection()
+    {
+        $connected = @fsockopen("www.google.com", 80);
+        if ($connected) {
+            fclose($connected);
+            return true; //action when connected
         }
-
-
-
-        //return $teste;
-
-
+        exit(json_encode([
+            'connected' => false,
+            'data' => []
+        ]));
     }
 }

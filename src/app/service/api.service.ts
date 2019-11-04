@@ -41,7 +41,7 @@ export class ApiService {
 
   // Atualizar Colaborador
   updateColaborador(id, data): Observable<any> {
-    let url = `${this.baseUri}/update/${id}`;
+    let url = `${this.baseUri}/colaborador-up/${id}`;
     return this.http.put(url, data, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
     )

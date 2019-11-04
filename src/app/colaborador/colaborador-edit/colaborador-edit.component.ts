@@ -61,6 +61,7 @@ export class ColaboradorEditComponent implements OnInit {
     } else {
       if (window.confirm('Are you sure?')) {
         let id = this.actRoute.snapshot.paramMap.get('id');
+        console.log(this.editForm.value)
         this.apiService.updateColaborador(id, this.editForm.value)
           .subscribe(res => {
             this.router.navigateByUrl('/colaborador-list');

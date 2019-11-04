@@ -49,6 +49,7 @@ export class ColaboradorListComponent implements OnInit {
   listaColaboradores(){
     this.apiService.getColaboradores().subscribe((data) => {
      this.colaboradores = data;
+     this.colaboradores = this.colaboradores.colaboradores;
      console.log(this.colaboradores);
     })    
   }
