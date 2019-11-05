@@ -165,6 +165,14 @@ body{
     color: #fff;
   }
 
+  .a{
+    color: white;
+    text-decoration: none;
+  }
+  .a:hover {
+    color: black;
+  }
+
   .terminal {
     position: relative;
     width: 80%;

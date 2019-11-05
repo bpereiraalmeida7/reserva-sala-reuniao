@@ -22,3 +22,9 @@ Route::get('/colaborador/{id}', 'ColaboradorController@show');
 Route::post('/colaborador-post', 'ColaboradorController@store');
 Route::put('/colaborador-up/{id}', 'ColaboradorController@update');
 Route::delete('/colaborador-del/{id}', 'ColaboradorController@destroy');
+
+Route::get('/salas', 'SalaController@index');
+Route::get('/sala/{id}', 'SalaController@show');
+Route::post('/sala-post', 'SalaController@store');
+Route::put('/sala-up/{id}', 'SalaController@update');
+Route::delete('/sala-del/{id}', 'SalaController@destroy');

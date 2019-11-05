@@ -53,6 +53,39 @@ export class ApiService {
     )
   }
 
+  createRoom(data): Observable<any> {
+    let url = `${this.baseUri}/sala-post`;
+    return this.http.post(url, data, {headers: this.headers})
+      .pipe(
+        catchError(this.errorMgmt)
+      )
+  }
+  
+  getSalas(){
+    return this.http.get(`${this.baseUri}/salas`);
+  }
+  
+  getSala(id): Observable<any> {
+    let url = `${this.baseUri}/sala/${id}`;
+    return this.http.get(url, {headers: this.headers}).pipe(
+      map((res: Response) => {
+        return res || {}
+      }),
+      catchError(this.errorMgmt)
+    )
+  }
+
+  updateSala(id, data): Observable<any> {
+    let url = `${this.baseUri}/sala-up/${id}`;
+    return this.http.put(url, data)
+  }
+
+  deleteSala(id): Observable<any> {
+    let url = `${this.baseUri}/sala-del/${id}`;
+    return this.http.delete(url, { headers: this.headers }).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
   // Error handling 
   errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';

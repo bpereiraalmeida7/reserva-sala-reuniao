@@ -4,6 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { DataTablesModule } from 'angular-datatables';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,7 +35,8 @@ import { SalasListComponent } from './salas/salas-list/salas-list.component';
     DataTablesModule,
     FormsModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgDatetimePickerModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]

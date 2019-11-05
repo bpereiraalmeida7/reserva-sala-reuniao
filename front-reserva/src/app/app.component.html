@@ -3,7 +3,15 @@
   <nav class="my-2 my-md-0 mr-md-3">
     <button class="btn btn-outline a-button-sala" routerLink="/colaborador-list">Colaboradores</button>
   </nav>
-  <button class="btn btn-warning "  routerLinkActive="active" routerLink="/salas-list">Salas de Reunião</button>
+  <div class="dropdown">
+      <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Salas de Reunião
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item a"  routerLink="/salas-list" >Salas</a>
+        <a class="dropdown-item a"  routerLink="/salas-list">Agendamento de Sala</a>
+      </div>
+    </div>
 </div>
 
 <router-outlet></router-outlet>

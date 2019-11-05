@@ -1,1 +1,48 @@
-<p>salas-edit works!</p>
+<div class="row justify-content-center">
+        
+        <div class="col-md-4 register-employee">
+            <div class="card card-outline-secondary">
+                <div class="card-header">
+                    <h3 class="mb-0">Cadastrar Sala</h3>
+                </div>
+            <!-- form card register -->
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="inputName">Nome</label>
+                            <input class="form-control" type="text" name="nome" [(ngModel)]="nome" [(value)]="nome">
+                        </div>
+                        <div class="form-group">
+    
+                            <p>Características da Sala:</p>
+                            <hr>
+                            
+                            <label for="inputEmail3">Quantidade de Cadeiras</label>
+                            <input class="form-control" type="text" name="quantidade" [(ngModel)]="quantidade" [(value)]="quantidade">
+                        </div>
+                        
+                        <div class="form-check form-check">
+                            <input class="form-check-input" type="checkbox" [(value)]="checkboxComp" [checked]="checkboxComp" (change)="toggleVisibility($event, 'comp')" id="inlineCheckbox1" value="opcao1">
+                            <label class="form-check-label" for="inlineCheckbox1">Computador</label>
+                        </div>
+                        <div class="form-check form-check">
+                            <input class="form-check-input" type="checkbox"  [(value)]="checkboxProj" [checked]="checkboxProj" (change)="toggleVisibility($event, 'projetor')" id="inlineCheckbox2" value="opcao2">
+                            <label class="form-check-label" for="inlineCheckbox2">Projetor</label>
+                        </div>
+                        <div class="form-check form-check">
+                            <input class="form-check-input" type="checkbox"  [(value)]="checkboxVideo" [checked]="checkboxVideo" (change)="toggleVisibility($event, 'video')" id="inlineCheckbox3" value="opcao3">
+                            <label class="form-check-label" for="inlineCheckbox3">Sistema para videoconferência</label>
+                        </div>
+      
+                        <div class="form-group">
+                            <br>
+                            <button class="btn btn-success btn-lg btn-block" type="submit" (click)="onSubmit()">Salvar</button>
+                        </div>
+                        <div class="form-group">
+                                <a class="btn btn-outline-primary  btn-block"  routerLink="/colaborador-list">Voltar</a>
+                        </div>
+                </form>
+            </div>
+          </div>
+        </div><!-- form card register -->
+      </div>

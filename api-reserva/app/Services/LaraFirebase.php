@@ -124,7 +124,7 @@ class LaraFirebase
     public function insertRecord(array $data, $returnData = false)
     {
         $countedRecords = 0;
-        if($this->getRecords() > 0){
+        if($this->getRecords() > 0 || count($this->getRecords()) > 0){
             $countedRecords = count($this->getRecords());
         }
         

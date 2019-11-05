@@ -3,51 +3,47 @@
     <div class="col-md-4 register-employee">
         <div class="card card-outline-secondary">
             <div class="card-header">
-                <h3 class="mb-0">Cadastrar Colaborador</h3>
+                <h3 class="mb-0">Cadastrar Sala</h3>
             </div>
         <!-- form card register -->
             <div class="card-body">
-                <form [formGroup]="colaboradorForm" (ngSubmit)="onSubmit()">
+                <form method="POST">
                     <div class="form-group">
                         <label for="inputName">Nome</label>
-                        <input class="form-control" type="text" name="nome" formControlName="nome">
-                        <div class="invalid-feedback" *ngIf="submitted && myForm.nome.errors?.required">
-                            Nome é obrigatório.
-                        </div>
-                        </div>
-                        <div class="form-group">
-                        <label for="inputEmail3">Email</label>
-                        <input class="form-control" type="text" formControlName="email">
-                        <!-- error -->
-                        <div class="invalid-feedback" *ngIf="submitted && myForm.email.errors?.required">
-                            Digite o email.
-                        </div>
-                        <div class="invalid-feedback" *ngIf="submitted && myForm.email.errors?.pattern">
-                            Digite um email válido.
-                        </div>
-                        </div>
-            
-                        <div class="form-group">
-                        <label for="inputVerify3">Telefone</label>
-                        <input class="form-control" type="text" formControlName="telefone">
-                        <!-- error -->
-                        <div class="invalid-feedback" *ngIf="submitted && myForm.telefone.errors?.required">
-                            Digite um número de telefone.
-                        </div>
-                        <div class="invalid-feedback" *ngIf="submitted && myForm.telefone.errors?.pattern">
-                            Digite apenas números.
-                        </div>
+                        <input class="form-control" type="text" name="nome" [(ngModel)]="nome">
+                    </div>
+                    <div class="form-group">
+
+                        <p>Características da Sala:</p>
+                        <hr>
+                        
+                        <label for="inputEmail3">Quantidade de Cadeiras</label>
+                        <input class="form-control" type="text" name="quantidade" [(ngModel)]="quantidade">
+                    </div>
+                    
+                    <div class="form-check form-check">
+                        <input class="form-check-input" type="checkbox" [value]="checkboxComp" (change)="toggleVisibility($event, 'comp')" id="inlineCheckbox1" value="opcao1">
+                        <label class="form-check-label" for="inlineCheckbox1">Computador</label>
+                    </div>
+                    <div class="form-check form-check">
+                        <input class="form-check-input" type="checkbox"  [value]="checkboxProj" (change)="toggleVisibility($event, 'projetor')" id="inlineCheckbox2" value="opcao2">
+                        <label class="form-check-label" for="inlineCheckbox2">Projetor</label>
+                    </div>
+                    <div class="form-check form-check">
+                        <input class="form-check-input" type="checkbox"  [value]="checkboxVideo" (change)="toggleVisibility($event, 'video')" id="inlineCheckbox3" value="opcao3">
+                        <label class="form-check-label" for="inlineCheckbox3">Sistema para videoconferência</label>
                     </div>
   
                     <div class="form-group">
-                        <button class="btn btn-success btn-lg btn-block" type="submit">Salvar</button>
+                        <br>
+                        <button class="btn btn-success btn-lg btn-block" type="submit" (click)="onSubmit()">Salvar</button>
                     </div>
                     <div class="form-group">
                             <a class="btn btn-outline-primary  btn-block"  routerLink="/colaborador-list">Voltar</a>
                     </div>
                     
-        </form>
-    </div>
+            </form>
+        </div>
       </div>
     </div><!-- form card register -->
   </div>
