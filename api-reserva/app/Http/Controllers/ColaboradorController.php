@@ -47,7 +47,7 @@ class ColaboradorController extends Controller
             $insertRecord = $this->pfb->insertRecord([
                 'nome' => $request->nome,
                 'email' => $request->email,
-                'telefone' => $request->email,
+                'telefone' => $request->telefone,
                 'date' => now()->toDateTimeString()
             ], true);
 
@@ -97,12 +97,11 @@ class ColaboradorController extends Controller
      */
     public function update($id, Request $request)
     {
-        dd('$request->name');
         $this->checkInternetConnection();
         $colaborador = $this->pfb->updateRecord($id, [
             'nome' => $request->nome,
             'email' => $request->email,
-            'telefone' => $request->email,
+            'telefone' => $request->telefone,
             'date' => now()->toDateTimeString()
         ]);
 
@@ -115,10 +114,10 @@ class ColaboradorController extends Controller
      * @param Request $request
      * @return void
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
         $this->checkInternetConnection();
-        $this->pfb->deleteRecord($request->colaboradorId);
+        $this->pfb->deleteRecord($id);
          return response()->json([
              'connected' => true,
              'colaboradores' => $this->pfb->getRecords()

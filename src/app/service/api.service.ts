@@ -16,7 +16,7 @@ export class ApiService {
   
   // Criar Colaborador
   createEmployee(data): Observable<any> {
-    let url = `${this.baseUri}/create`;
+    let url = `${this.baseUri}/colaborador-post`;
     return this.http.post(url, data, {headers: this.headers})
       .pipe(
         catchError(this.errorMgmt)
@@ -42,14 +42,12 @@ export class ApiService {
   // Atualizar Colaborador
   updateColaborador(id, data): Observable<any> {
     let url = `${this.baseUri}/colaborador-up/${id}`;
-    return this.http.put(url, data, { headers: this.headers }).pipe(
-      catchError(this.errorMgmt)
-    )
+    return this.http.put(url, data)
   }
 
   // Deletar colaborador
   deleteEmployee(id): Observable<any> {
-    let url = `${this.baseUri}/delete/${id}`;
+    let url = `${this.baseUri}/colaborador-del/${id}`;
     return this.http.delete(url, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
     )

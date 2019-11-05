@@ -56,7 +56,7 @@ export class ColaboradorListComponent implements OnInit {
 
   removerColaborador(colaborador, index) {
     if(window.confirm('Are you sure?')) {
-        this.apiService.deleteEmployee(colaborador._id).subscribe((data) => {
+        this.apiService.deleteEmployee(colaborador.id).subscribe((data) => {
           this.colaboradores.splice(index, 1);
           this.listaColaboradores()
         }
