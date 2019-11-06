@@ -1,12 +1,59 @@
-
-<div class="container">
-        <a class="btn btn-outline-primary"  routerLink="/salas-create">Nova Sala</a>
+<main role="main" class="container">
+    
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+      <h6 class="border-bottom border-gray pb-2 mb-0">Agendamento de Salas</h6>
+      <div class="media text-muted pt-3">
+          <div class="container">
+                <form>
+                    <div class="row">
+                        <div class="col">
+                            <label for="inputName">Data da reunião:</label>
+                            <input type="text" [textMask]="{mask: mask}" class="form-control" value="{{dataAgendamento | date: 'dd/MM/yyyy'}}" >
+                        </div>
+                        <div class="col">
+                            <label for="inputName">Horário de início:</label>
+                            <input type="text" [textMask]="{mask: maskTime}" class="form-control" placeholder="00:00">
+                        </div>
+                        <div class="col">
+                            <label for="inputName">Horário de término:</label>
+                            <input type="text" [textMask]="{mask: maskTimeFim}" class="form-control" placeholder="00:00"><br>
+                        </div>
+                        <div class="col">
+                            <label for="inputName">Colaborador:</label>
+                            <select class="form-control">
+                                <option value="">Selecione...</option>
+                                <option *ngFor="let colaborador of colaboradores" value= {{colaborador.id}}>
+                                    {{colaborador.nome}}
+                                </option>
+                            </select><br>
+                        </div>
+                    </div>
+                    <div class="form-check form-check">
+                        <input class="form-check-input" type="checkbox" [value]="checkboxComp" (change)="toggleVisibility($event, 'comp')" id="inlineCheckbox1" value="opcao1">
+                        <label class="form-check-label" for="inlineCheckbox1">Computador</label>
+                    </div>
+                    <div class="form-check form-check">
+                        <input class="form-check-input" type="checkbox"  [value]="checkboxProj" (change)="toggleVisibility($event, 'projetor')" id="inlineCheckbox2" value="opcao2">
+                        <label class="form-check-label" for="inlineCheckbox2">Projetor</label>
+                    </div>
+                    <div class="form-check form-check">
+                        <input class="form-check-input" type="checkbox"  [value]="checkboxVideo" (change)="toggleVisibility($event, 'video')" id="inlineCheckbox3" value="opcao3">
+                        <label class="form-check-label" for="inlineCheckbox3">Sistema para videoconferência<br></label>
+                    </div>
+                    <div class="form-group right">
+                        <!-- <button type="button" class="btn btn-success position">Salvar</button> -->
+                        <button type="button" class="btn btn-outline-primary position-voltar">Buscar</button>
+                    </div>
+                </form>
+            </div>
+      </div>
     </div>
-      
-    <main role="main" class="container">
+</main>
+
+<main role="main" class="container">
         
         <div class="my-3 p-3 bg-white rounded shadow-sm">
-          <h6 class="border-bottom border-gray pb-2 mb-0">Salas</h6>
+          <h6 class="border-bottom border-gray pb-2 mb-0">Salas Disponíveis</h6>
           <div class="media text-muted pt-3">
               <div class="container">
                   <!-- No data message -->
@@ -76,5 +123,3 @@
           </div>
         </div>
     </main>
-    
-    

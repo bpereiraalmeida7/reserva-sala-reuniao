@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { DataTablesModule } from 'angular-datatables';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NgDatetimePickerModule } from '@sq-ui/ng-datetime-picker';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +16,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SalasCreateComponent } from './salas/salas-create/salas-create.component';
 import { SalasEditComponent } from './salas/salas-edit/salas-edit.component';
 import { SalasListComponent } from './salas/salas-list/salas-list.component';
+import { AgendamentoComponent } from './agendamento/agendamento/agendamento.component';
+import { TextMaskModule } from 'angular2-text-mask';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SalasListComponent } from './salas/salas-list/salas-list.component';
     ColaboradorListComponent,
     SalasCreateComponent,
     SalasEditComponent,
-    SalasListComponent
+    SalasListComponent,
+    AgendamentoComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,7 @@ import { SalasListComponent } from './salas/salas-list/salas-list.component';
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    NgDatetimePickerModule
+    TextMaskModule
   ],
   providers: [ApiService],
   bootstrap: [AppComponent]
