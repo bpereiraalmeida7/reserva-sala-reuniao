@@ -1,6 +1,6 @@
 # Configurando Frontend (Angular)
 
-###### Documentação: [Angular CLI](https://github.com/angular/angular-cli)
+###### Documentação: [Requisitos](https://angular.io/guide/setup-local)
 
 Após clonar todo o projeto, e verificar os requisitos do sistema, para que rode perfeitamente, configure o frontend da seguinte forma:
 
