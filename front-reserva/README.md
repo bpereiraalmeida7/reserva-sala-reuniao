@@ -10,4 +10,4 @@ Após clonar todo o projeto, e verificar os requisitos do sistema, para que rode
 2. Com tudo devidamente instalado, apenas execute o comando para rodar o projeto:
     > npm start
     
-O projeto irá rodar no endereço padrão: localhost:4200. Acesse nesse endereço, e utilize o projeto. Na caminho src/app/service, está configurada o endereço local onde sua API já eve está rodando [api-reserva](https://github.com/bpereiraalmeida7/reserva-sala-reuniao/edit/master/api-reserva/README.md), caso precise mudar, poderá faze-lo modificando o valor inputado na variável "baseUri". Com isso, tudo pronto para o frontend se "comunicar" com o backend, e retornar os dados necessários.
+O projeto irá rodar no endereço padrão: localhost:4200. Acesse nesse endereço, e utilize o projeto. Na caminho src/app/service, está configurada o endereço local onde sua API já eve está rodando [api-reserva](https://github.com/bpereiraalmeida7/reserva-sala-reuniao/master/api-reserva/README.md), caso precise mudar, poderá faze-lo modificando o valor inputado na variável "baseUri". Com isso, tudo pronto para o frontend se "comunicar" com o backend, e retornar os dados necessários.
