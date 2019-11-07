@@ -13,4 +13,4 @@ Este sistema foi desenvolvido com duas tecnologias atuais, uma para o frontend (
 * front-reserva - [(Angular)](https://github.com/bpereiraalmeida7/reserva-sala-reuniao/blob/master/front-reserva/README.md)
 * api-reserva - [(Laravel)](https://github.com/bpereiraalmeida7/reserva-sala-reuniao/blob/master/api-reserva/README.md)
 
-### [Ler Mais](https://github.com/bpereiraalmeida7/reserva-sala-reuniao/wiki)
+### [Wiki](https://github.com/bpereiraalmeida7/reserva-sala-reuniao/wiki)
