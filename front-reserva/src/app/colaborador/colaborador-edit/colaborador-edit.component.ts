@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from './../../service/api.service';
 import { FormGroup, FormBuilder, Validators, NgForm  } from "@angular/forms";
+import { NgxSpinnerService } from 'ngx-spinner';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-colaborador-edit',
@@ -15,7 +18,7 @@ export class ColaboradorEditComponent implements OnInit {
   editForm: FormGroup;
   colaboradorData: Colaborador[];
 
-  constructor(public fb: FormBuilder, private actRoute: ActivatedRoute, private apiService: ApiService, private router: Router) { }
+  constructor(public fb: FormBuilder, private actRoute: ActivatedRoute, private apiService: ApiService, private router: Router, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.atualizaColaborador();
@@ -52,26 +55,39 @@ export class ColaboradorEditComponent implements OnInit {
   }
 
   onSubmit() {
-   
+    
     this.submitted = true;
     if (this.editForm.invalid) {
       console.log(this.myForm)
       return;
       
     } else {
-      if (window.confirm('Are you sure?')) {
-        let id = this.actRoute.snapshot.paramMap.get('id');
-        console.log(this.editForm.value)
-        this.apiService.updateColaborador(id, this.editForm.value)
-          .subscribe(res => {
-            this.router.navigateByUrl('/colaborador-list');
-            console.log('Content updated successfully!')
-          }, (error) => {
-            console.log(error)
-          })
-      }
+      Swal.fire({
+        title: 'Tem certeza?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sim!',
+        cancelButtonText: 'Não!'
+      }).then((result) => {
+        if (result.value) {
+          Swal.fire(
+            'Editado!',
+            'Esta sala foi editada com sucesso',
+            'success'
+          )
+          let id = this.actRoute.snapshot.paramMap.get('id');
+          console.log(this.editForm.value)
+          this.apiService.updateColaborador(id, this.editForm.value)
+            .subscribe(res => {
+              this.router.navigateByUrl('/colaborador-list');
+              console.log('Content updated successfully!')
+            }, (error) => {
+              console.log(error)
+            })
+        // For more information about handling dismissals please visit
+        // https://sweetalert2.github.io/#handling-dismissals
+        } 
+      })
     }
   }
-
-
 }

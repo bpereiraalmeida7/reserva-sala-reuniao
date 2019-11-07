@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from './../../service/api.service';
 import { FormGroup, FormBuilder, Validators, NgForm  } from "@angular/forms";
+import { NgxSpinnerService } from 'ngx-spinner';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-salas-edit',
@@ -20,9 +22,10 @@ export class SalasEditComponent implements OnInit {
   salas: any
 
 
-  constructor(public fb: FormBuilder, private actRoute: ActivatedRoute, private apiService: ApiService, private router: Router) { }
+  constructor(public fb: FormBuilder, private actRoute: ActivatedRoute, private apiService: ApiService, private router: Router, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    
     let id = this.actRoute.snapshot.paramMap.get('id');
     this.mostraSala(id);
   }
@@ -44,6 +47,8 @@ export class SalasEditComponent implements OnInit {
   }
 
   mostraSala(id) {
+    this.spinner.show();
+
     this.apiService.getSala(id).subscribe(data => {
       this.salas = data;
       this.nome = this.salas.nome;
@@ -51,6 +56,11 @@ export class SalasEditComponent implements OnInit {
       this.checkboxComp = this.salas.computador;
       this.checkboxProj = this.salas.projetor;
       this.checkboxVideo = this.salas.video;
+
+      setTimeout(() => {
+        /** spinner ends after 3 seconds */
+        this.spinner.hide();
+      }, 3000);
     });
   }
 
@@ -65,17 +75,30 @@ export class SalasEditComponent implements OnInit {
       video: this.checkboxVideo
     }
 
-    if (window.confirm('Are you sure?')) {
-      let id = this.actRoute.snapshot.paramMap.get('id');
-      console.log(data)
-      this.apiService.updateSala(id, data)
+    Swal.fire({
+      title: 'Tem certeza?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sim!',
+      cancelButtonText: 'Não!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Editado!',
+          'Esta sala foi editada com sucesso',
+          'success'
+        )
+        let id = this.actRoute.snapshot.paramMap.get('id');
+        console.log(data)
+        this.apiService.updateSala(id, data)
         .subscribe(res => {
           this.router.navigateByUrl('/salas-list');
-          console.log('Content updated successfully!')
-        }, (error) => {
-          console.log(error)
-        })
-    }
+        });
+      // For more information about handling dismissals please visit
+      // https://sweetalert2.github.io/#handling-dismissals
+      } 
+    })
+    
   }
 
 }

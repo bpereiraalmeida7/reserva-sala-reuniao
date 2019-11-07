@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { ApiService } from './../../service/api.service';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-colaborador-create',
@@ -40,7 +41,12 @@ export class ColaboradorCreateComponent implements OnInit {
     } else {
       this.apiService.createEmployee(this.colaboradorForm.value).subscribe(
         (res) => {
-          console.log('Employee successfully created!')
+          Swal.fire({
+            icon: 'success',
+            title: 'Salvo com sucesso!',
+            showConfirmButton: false,
+            timer: 1500
+          })
           this.ngZone.run(() => this.router.navigateByUrl('/colaborador-list'))
         }, (error) => {
           console.log(error);

@@ -66,7 +66,7 @@ export class SalasCreateComponent implements OnInit {
           timer: 1500
         })
         
-        this.ngZone.run(() => this.router.navigateByUrl('/salas-list'))
+        this.router.navigateByUrl('/salas-list');
       }, (error) => {
         console.log(error);
     });

@@ -29,26 +29,27 @@ export class SalasListComponent implements OnInit {
       language: {
         processing: "Procesando...",
         search: "Buscar:",
-        lengthMenu: "Mostrar _MENU_ &eacute;l&eacute;ments",
-        info: "Mostrando desde _START_ al _END_ de _TOTAL_ elementos",
-        infoEmpty: "Mostrando ningún elemento.",
+        lengthMenu: "Mostrar _MENU_ elementos",
+        info: "Mostrando de _START_ a _END_ de _TOTAL_ elementos",
+        infoEmpty: "Mostrando nenhum elemento.",
         infoFiltered: "(filtrado _MAX_ elementos total)",
         infoPostFix: "",
-        loadingRecords: "Cargando registros...",
-        zeroRecords: "No se encontraron registros",
-        emptyTable: "No hay datos disponibles en la tabla",
+        loadingRecords: "Carregando registros...",
+        zeroRecords: "Nenhum registro encontrado.",
+        emptyTable: "Não há dados disponiveis na tabela",
         paginate: {
           first: "Primero",
           previous: "Anterior",
-          next: "Siguiente",
+          next: "Seguinte",
           last: "Último"
         },
         aria: {
-          sortAscending: ": Activar para ordenar la tabla en orden ascendente",
-          sortDescending: ": Activar para ordenar la tabla en orden descendente"
+          sortAscending: ": Ativar para ordenar a tabela em ordem ascendente",
+          sortDescending: ": Ativar para ordenar a tabela em ordem descendente"
         }
       }
     };
+    
     this.listaSalas()
   }
 
@@ -59,7 +60,7 @@ export class SalasListComponent implements OnInit {
      this.salas = this.salas.salas;
      console.log(this.salas);
      setTimeout(() => {
-      /** spinner ends after 5 seconds */
+      /** spinner ends after 3 seconds */
       this.spinner.hide();
     }, 3000);
     })    

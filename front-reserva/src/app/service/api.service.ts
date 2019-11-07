@@ -53,6 +53,7 @@ export class ApiService {
     )
   }
 
+  // Criar Sala
   createRoom(data): Observable<any> {
     let url = `${this.baseUri}/sala-post`;
     return this.http.post(url, data, {headers: this.headers})
@@ -61,10 +62,12 @@ export class ApiService {
       )
   }
   
+  // Buscar todas as Salas
   getSalas(){
     return this.http.get(`${this.baseUri}/salas`);
   }
   
+  //Buscar salas específicas
   getSala(id): Observable<any> {
     let url = `${this.baseUri}/sala/${id}`;
     return this.http.get(url, {headers: this.headers}).pipe(
@@ -75,19 +78,21 @@ export class ApiService {
     )
   }
 
+  //Atualizar sala
   updateSala(id, data): Observable<any> {
     let url = `${this.baseUri}/sala-up/${id}`;
     return this.http.put(url, data)
   }
 
+  //Deletar sala
   deleteSala(id): Observable<any> {
     let url = `${this.baseUri}/sala-del/${id}`;
     return this.http.delete(url, { headers: this.headers }).pipe(
       catchError(this.errorMgmt)
     )
   }
-''
 
+  //Adicionar agendamento
   createAgendamento(data): Observable<any> {
     let url = `${this.baseUri}/agendamento-post`;
     return this.http.post(url, data, {headers: this.headers})
@@ -96,10 +101,11 @@ export class ApiService {
       )
   }
 
+  //Buscar Agendamentos
   getAgendamentos(){
     return this.http.get(`${this.baseUri}/agendamentos`);
   }
-
+  
   getAgendamento(id): Observable<any> {
     let url = `${this.baseUri}/agendamento/${id}`;
     return this.http.get(url, {headers: this.headers}).pipe(
