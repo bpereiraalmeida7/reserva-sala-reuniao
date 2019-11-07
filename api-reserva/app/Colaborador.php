@@ -8,9 +8,9 @@ class Colaborador extends Model
 {
     protected $table = 'colaboradores';
 
-    protected $fillable = [
-        'nome',
-        'email',
-        'telefone'
-    ];
+    public $nome;
+
+    public static function getNome(){
+        return $nome;
+    }
 }

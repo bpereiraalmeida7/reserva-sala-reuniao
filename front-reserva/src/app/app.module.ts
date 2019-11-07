@@ -18,6 +18,8 @@ import { SalasEditComponent } from './salas/salas-edit/salas-edit.component';
 import { SalasListComponent } from './salas/salas-list/salas-list.component';
 import { AgendamentoComponent } from './agendamento/agendamento/agendamento.component';
 import { TextMaskModule } from 'angular2-text-mask';
+import { DatePipe } from '@angular/common';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   declarations: [
@@ -38,9 +40,13 @@ import { TextMaskModule } from 'angular2-text-mask';
     FormsModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    TextMaskModule
+    TextMaskModule,
+    NgxSpinnerModule
   ],
-  providers: [ApiService],
+  providers: [
+    ApiService,
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

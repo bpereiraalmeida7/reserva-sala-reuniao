@@ -1,16 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 30-Nov-18
- * Time: 10:18 AM
- */
 
 namespace App\Services;
 
 use Kreait\Firebase\Factory;
 use Kreait\Firebase\ServiceAccount;
-use Colaborador;
+use App\Colaborador;
+use App\Sala;
+use App\Agendamento;
 
 class LaraFirebase
 {
@@ -124,8 +120,10 @@ class LaraFirebase
     public function insertRecord(array $data, $returnData = false)
     {
         $countedRecords = 0;
-        if($this->getRecords() > 0 || count($this->getRecords()) > 0){
-            $countedRecords = count($this->getRecords());
+        if($this->getRecords() > 0){
+            if(count($this->getRecords()) > 0){
+                $countedRecords = count($this->getRecords());
+            }
         }
         
         $data[$this->primaryKey] = $countedRecords > 1 ? $countedRecords + 1 : 1;
@@ -189,6 +187,28 @@ class LaraFirebase
         }
 
         return false;
+    }
+
+    public function getRecordFilter(array $data, $returnData = false)
+    {
+        $data_reserva = Agendamento::getDataReserva();
+        $hora_inicio = Agendamento::getHoraInicio();
+        $hora_fim = Agendamento::getHoraFim();
+        $computador = Agendamento::getComputador();
+        $projetor = Agendamento::getProjetor();
+        $video = Agendamento::getVideo();
+
+
+        foreach ($this->getRecords() as $key => $record) {
+            if ($record[$data_reserva] != $data['data_reserva'] && ($record[$hora_inicio] >= $data['hora_inicio'] && $record[$hora_fim] <= $data['hora_fim']) && $record[$computador] == $data['computador'] && $record[$projetor] == $data['projetor'] && $record[$video] == $data['video']) {
+                $result .= $record; 
+                return $result;
+            }else{
+                return $result = null;
+            }
+        }
+
+        return null;
     }
 }
 

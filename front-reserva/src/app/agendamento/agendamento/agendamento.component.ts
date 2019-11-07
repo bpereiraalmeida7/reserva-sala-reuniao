@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ApiService } from 'src/app/service/api.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-agendamento',
@@ -11,7 +12,23 @@ export class AgendamentoComponent implements OnInit {
 
   colaboradores: any = [];
   salas: any = [];
+  agendamentos: any = []
+  salas_filtro: any = [];
+  salas_disponiveis: any = [];
   dtOptions: DataTables.Settings = {};
+
+  sala_id: any = null;
+  colaborador_id: any = null;
+  hora_inicio: any = '';
+  hora_fim: any = '';
+  computador: any = '';
+  projetor: any = '';
+  video: any = '';
+
+  checkboxComp: boolean = false;
+  checkboxProj: boolean = false;
+  checkboxVideo: boolean = false;
+
   
   dataAgendamento = Date.now();
 
@@ -19,7 +36,7 @@ export class AgendamentoComponent implements OnInit {
   public maskTime = [/[0-9]/, /\d/, ':', /[0-9]/,  /\d/];
   public maskTimeFim = [/[0-9]/, /\d/, ':', /[0-9]/,  /\d/];
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private pipe: DatePipe) { }
 
   ngOnInit() {
     this.dtOptions = {
@@ -50,6 +67,28 @@ export class AgendamentoComponent implements OnInit {
     };
     this.listaColaboradores()
     this.listaSalas()
+    this.listaAgendamentos()
+  }
+
+  toggleVisibility(e, check){
+    console.log('e')
+    switch (check) {
+      case 'comp':
+        this.checkboxComp = e.target.checked;
+        break;
+      case 'projetor':
+        this.checkboxProj = e.target.checked;
+        break;
+      case 'video':
+        this.checkboxVideo = e.target.checked;
+        break;
+      default:
+        break;
+    }
+  }
+
+  changeColaborador(e){
+    console.log('e')
   }
 
   listaColaboradores(){
@@ -65,6 +104,47 @@ export class AgendamentoComponent implements OnInit {
      this.salas = data;
      this.salas = this.salas.salas;
      console.log(this.salas);
+     this.getDisponiveis();
     })    
+  }
+
+  listaAgendamentos(){
+    this.apiService.getAgendamentos().subscribe((data) => {
+      this.agendamentos = data;
+      this.agendamentos = this.agendamentos.agendamento;
+      console.log(this.agendamentos);
+    })    
+  }
+
+  getDisponiveis(){
+    let data
+    data = {
+      colaborador_id: this.colaborador_id, 
+      sala_id: this.sala_id,
+      data_reserva: this.pipe.transform(this.dataAgendamento, 'dd/MM/yyyy'),
+      hora_inicio: this.hora_inicio,
+      hora_fim: this.hora_fim,
+      computador: this.checkboxComp,
+      projetor: this.checkboxProj,
+      video: this.checkboxVideo
+    }
+    console.log(data)
+    /* $record[$data_reserva] != $data['data_reserva'] && ($record[$hora_inicio] >= $data['hora_inicio'] && $record[$hora_fim] <= $data['hora_fim']) && $record[$computador] == $data['computador'] && $record[$projetor] == $data['projetor'] && $record[$video] == $data['video'] */
+    this.salas_filtro = this.salas.filter(function(room) {
+      return (room.computador == data.computador || room.projetor == data.projetor || room.video == data.video);
+    });
+
+    /* this.salas_disponiveis = this.agendamentos.filter(function(room) {
+      return (room.id == this.salas_filtro.id);
+    });
+ */
+    this.salas_disponiveis = this.salas_filtro.filter(function(room) {
+      return (room.data_reserva == data.data_reserva && (room.hora_inicio < data.hora_inicio && room.hora_fim < data.hora_fim) && room.id == this.salas_agendamento.sala_id);
+    });
+    /* this.salas_disponiveis = this.agendamentos.filter(function(room) {
+      return room.id == this.salas_filtro.id;
+    }); */
+    var novoarray = this.salas_filtro.filter(function(a){return a.id != 2});
+    console.log(this.salas_disponiveis)
   }
 }

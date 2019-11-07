@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ApiService } from './../../service/api.service';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import Swal from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-salas-create',
@@ -18,7 +20,7 @@ export class SalasCreateComponent implements OnInit {
   checkboxProj: boolean = false;
   checkboxVideo: boolean = false;
 
-  constructor(public fb: FormBuilder, private router: Router, private ngZone: NgZone, private apiService: ApiService) {
+  constructor(public fb: FormBuilder, private router: Router, private ngZone: NgZone, private apiService: ApiService, private spinner: NgxSpinnerService) {
    
   }
 
@@ -53,10 +55,17 @@ export class SalasCreateComponent implements OnInit {
       projetor: this.checkboxProj,
       video: this.checkboxVideo
     }
-    console.log(data)
+
+    
     this.apiService.createRoom(data).subscribe(
       (res) => {
-        console.log('Room successfully created!')
+        Swal.fire({
+          icon: 'success',
+          title: 'Salvo com sucesso!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        
         this.ngZone.run(() => this.router.navigateByUrl('/salas-list'))
       }, (error) => {
         console.log(error);

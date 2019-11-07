@@ -86,6 +86,42 @@ export class ApiService {
       catchError(this.errorMgmt)
     )
   }
+''
+
+  createAgendamento(data): Observable<any> {
+    let url = `${this.baseUri}/agendamento-post`;
+    return this.http.post(url, data, {headers: this.headers})
+      .pipe(
+        catchError(this.errorMgmt)
+      )
+  }
+
+  getAgendamentos(){
+    return this.http.get(`${this.baseUri}/agendamentos`);
+  }
+
+  getAgendamento(id): Observable<any> {
+    let url = `${this.baseUri}/agendamento/${id}`;
+    return this.http.get(url, {headers: this.headers}).pipe(
+      map((res: Response) => {
+        return res || {}
+      }),
+      catchError(this.errorMgmt)
+    )
+  }
+
+  updateAgendamento(id, data): Observable<any> {
+    let url = `${this.baseUri}/agendamento-up/${id}`;
+    return this.http.put(url, data)
+  }
+
+  deleteAgendamento(id): Observable<any> {
+    let url = `${this.baseUri}/agendamento-del/${id}`;
+    return this.http.delete(url, { headers: this.headers }).pipe(
+      catchError(this.errorMgmt)
+    )
+  }
+
   // Error handling 
   errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';

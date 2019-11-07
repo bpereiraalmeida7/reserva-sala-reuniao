@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './../../service/api.service';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-salas-list',
@@ -14,9 +16,13 @@ export class SalasListComponent implements OnInit {
   faEdit = faEdit;
   faTrashAlt = faTrashAlt;
 
-  constructor(private apiService: ApiService) { }
+  
+
+  constructor(private apiService: ApiService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
+    
     this.dtOptions = {
       pagingType: 'full_numbers',
       responsive: true,
@@ -47,21 +53,41 @@ export class SalasListComponent implements OnInit {
   }
 
   listaSalas(){
+    
     this.apiService.getSalas().subscribe((data) => {
      this.salas = data;
      this.salas = this.salas.salas;
      console.log(this.salas);
+     setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 3000);
     })    
   }
 
   removerSala(sala, index) {
-    if(window.confirm('Are you sure?')) {
+    Swal.fire({
+      title: 'Tem certeza?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sim!',
+      cancelButtonText: 'Não!'
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire(
+          'Deletado!',
+          'Esta sala foi deletada com sucesso',
+          'success'
+        )
         this.apiService.deleteSala(sala.id).subscribe((data) => {
           this.salas.splice(index, 1);
           this.listaSalas()
-        }
-      )    
-    }
+        })   
+      // For more information about handling dismissals please visit
+      // https://sweetalert2.github.io/#handling-dismissals
+      } 
+    })
+      
   }
 
 }

@@ -8,24 +8,15 @@
                     <div class="row">
                         <div class="col">
                             <label for="inputName">Data da reunião:</label>
-                            <input type="text" [textMask]="{mask: mask}" class="form-control" value="{{dataAgendamento | date: 'dd/MM/yyyy'}}" >
+                            <input type="text" [textMask]="{mask: mask}" class="form-control" name="dataAgendamento" (ngModel)="dataAgendamento" placeholder="dd/MM/yyyy" >
                         </div>
                         <div class="col">
                             <label for="inputName">Horário de início:</label>
-                            <input type="text" [textMask]="{mask: maskTime}" class="form-control" placeholder="00:00">
+                            <input type="text" [textMask]="{mask: maskTime}" name="hora_inicio" [(ngModel)]="hora_inicio" class="form-control" placeholder="00:00">
                         </div>
                         <div class="col">
                             <label for="inputName">Horário de término:</label>
-                            <input type="text" [textMask]="{mask: maskTimeFim}" class="form-control" placeholder="00:00"><br>
-                        </div>
-                        <div class="col">
-                            <label for="inputName">Colaborador:</label>
-                            <select class="form-control">
-                                <option value="">Selecione...</option>
-                                <option *ngFor="let colaborador of colaboradores" value= {{colaborador.id}}>
-                                    {{colaborador.nome}}
-                                </option>
-                            </select><br>
+                            <input type="text" [textMask]="{mask: maskTimeFim}" name="hora_fim" [(ngModel)]="hora_fim" class="form-control" placeholder="00:00"><br>
                         </div>
                     </div>
                     <div class="form-check form-check">
@@ -42,7 +33,7 @@
                     </div>
                     <div class="form-group right">
                         <!-- <button type="button" class="btn btn-success position">Salvar</button> -->
-                        <button type="button" class="btn btn-outline-primary position-voltar">Buscar</button>
+                        <button type="submit" class="btn btn-outline-primary position-voltar" (click)="getDisponiveis()">Buscar</button>
                     </div>
                 </form>
             </div>
@@ -59,35 +50,6 @@
                   <!-- No data message -->
                   <p *ngIf="salas?.length < 0 || salas?.length == null" class="no-data text-center">Sem salas cadastradas!</p>
                 
-                  <!-- Employee list -->
-                  <!-- <table class="table table-bordered" *ngIf="colaboradores.length > 0">
-                    <thead class="table-success">
-                      <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Telefone</th>
-                        <th scope="col">Ação</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let colaborador of colaboradores; let i = index">
-                        <th scope="row">{{colaborador._id}}</th>
-                        <td>{{colaborador.nome}}</td>
-                        <td>{{colaborador.email}}</td>
-                        <td>{{colaborador.telefone}}</td>
-                        <td class="text-center edit-block">
-                          <span class="edit" [routerLink]="['/colaborador-edit/', colaborador._id]">
-                            <button type="button" class="btn btn-success btn-sm">Edit</button>
-                          </span>
-                          <span class="delete" (click)="removerColaborador(colaborador, i)">
-                            <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                          </span>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table> -->
-                  
                   <table datatable [dtOptions]="dtOptions" class="table-sm"  *ngIf="salas?.length > 0">
                       <thead class="table-head">
                         <tr>
@@ -109,16 +71,23 @@
                           <td >{{(sala.projetor == false ? 'Não Possui' : 'Possui')}}</td>
                           <td >{{(sala.video == false ? 'Não Possui' : 'Possui')}}</td>
                           <td class="text-left edit-block">
-                            <span class="edit" [routerLink]="['/salas-edit/', sala.id]">
-                              <button type="button" class="btn btn-success btn-sm">Editar <fa-icon [icon]="faEdit"></fa-icon></button>
-                            </span>
-                            <span class="delete" (click)="removerSala(sala, i)">
-                              <button type="button" class="btn btn-danger btn-sm">Deletar <fa-icon [icon]="faTrashAlt"></fa-icon></button>
-                            </span>
+                            <div class="form-check">
+                              <input class="" type="checkbox"  [value]="checkboxProj" (change)="toggleVisibility($event, 'projetor')" id="inlineCheckbox2" value="opcao2">
+                          </div>
                           </td>
                         </tr>
                       </tbody>
                     </table>
+
+                    <div *ngIf="salas?.length > 0">
+                      <label for="inputName">Colaborador:</label>
+                      <select class="form-control" placeholder="Selecione..." name="colaborador_id" [(ngModel)]="colaborador_id">
+                          <option >Selecione...</option>
+                          <option *ngFor="let colaborador of colaboradores" value={{colaborador.id}}>
+                              {{colaborador.nome}}
+                          </option>
+                      </select><br>
+                  </div>
                 </div>
           </div>
         </div>

@@ -28,3 +28,9 @@ Route::get('/sala/{id}', 'SalaController@show');
 Route::post('/sala-post', 'SalaController@store');
 Route::put('/sala-up/{id}', 'SalaController@update');
 Route::delete('/sala-del/{id}', 'SalaController@destroy');
+
+Route::get('/agendamentos', 'AgendamentoController@index');
+Route::get('/agendamento/{id}', 'AgendamentoController@show');
+Route::post('/agendamento-post', 'AgendamentoController@store');
+Route::put('/agendamento-up/{id}', 'AgendamentoController@update');
+Route::delete('/agendamento-del/{id}', 'AgendamentoController@destroy');
