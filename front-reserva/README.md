@@ -1,6 +1,6 @@
-# FrontReserva
+# Configurando Frontend (Angular)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.3.
+Esse projeto foi gerado com Angular CLI [Angular CLI](https://github.com/angular/angular-cli) versão 8.3.3.
 
 ## Development server
 
