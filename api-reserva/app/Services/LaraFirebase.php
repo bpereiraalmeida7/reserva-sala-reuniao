@@ -89,6 +89,13 @@ class LaraFirebase
      */
     public function getRecords(){
         return $this->database->getReference($this->table)->getValue();
+
+       /*  $array1 = $this->database->getReference($this->table)->orderByChild('hora_inicio')->startAt('09:00')->endAt('11:00')->getValue();
+        $array2 = $this->database->getReference($this->table)->orderByChild('hora_fim')->startAt('09:00')->endAt('11:00')->getValue();
+        print_r($array1);
+        print_r($array2); */
+        
+        //return array_merge($array1, $array2);
     }
 
     /**
