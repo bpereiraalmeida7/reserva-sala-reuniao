@@ -128,6 +128,25 @@ class AgendamentoController extends Controller
          ]);
     }
 
+    public function filterHora(Request $request)
+    {
+        try{
+            if ($request->hora_inicio && $request->hora_fim){
+                $this->checkInternetConnection();
+                $agendamento = $this->pfb->getRecordFilter([
+                    'hora_inicio' => $request->hora_inicio,
+                    'hora_fim' => $request->hora_fim
+                ]);
+
+                return response()->json($agendamento);
+            }else{
+                return 'false';     
+            }
+        }catch (Exception $e){
+            return $e->getMessage();
+        }
+    }
+
     public function checkInternetConnection()
     {
         $connected = @fsockopen("www.google.com", 80);

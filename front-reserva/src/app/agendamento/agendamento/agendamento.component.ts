@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ApiService } from 'src/app/service/api.service';
 import { DatePipe } from '@angular/common';
+import Swal from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-agendamento',
@@ -17,8 +19,8 @@ export class AgendamentoComponent implements OnInit {
   salas_disponiveis: any = [];
   dtOptions: DataTables.Settings = {};
 
-  sala_id: any = null;
-  colaborador_id: any = null;
+  sala_id: any = '';
+  colaborador_id: any = '';
   hora_inicio: any = '';
   hora_fim: any = '';
   computador: any = '';
@@ -29,14 +31,15 @@ export class AgendamentoComponent implements OnInit {
   checkboxProj: boolean = false;
   checkboxVideo: boolean = false;
 
+  agendamentoFinal: any;
   
-  dataAgendamento = Date.now();
+  dataAgendamento: any = '';
 
   public mask = [/[0-9]/, /\d/, '/', /[0-9]/,  /\d/, '/', /[0-9]/, /\d/, /\d/, /\d/];
   public maskTime = [/[0-9]/, /\d/, ':', /[0-9]/,  /\d/];
   public maskTimeFim = [/[0-9]/, /\d/, ':', /[0-9]/,  /\d/];
 
-  constructor(private apiService: ApiService, private pipe: DatePipe) { }
+  constructor(private apiService: ApiService, private pipe: DatePipe, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.dtOptions = {
@@ -68,11 +71,10 @@ export class AgendamentoComponent implements OnInit {
 
     this.listaColaboradores()
     this.listaSalas()
-    this.listaAgendamentos()
   }
 
   toggleVisibility(e, check){
-    console.log('e')
+    /* Checkbox (computador, projetor, video) */
     switch (check) {
       case 'comp':
         this.checkboxComp = e.target.checked;
@@ -88,60 +90,110 @@ export class AgendamentoComponent implements OnInit {
     }
   }
 
+  toggleVisibilitySala(e, id){
+    this.sala_id = id;
+  }
+
+  toggleVisibilityColaborador(e, id){
+    this.colaborador_id = id;
+  }
+
   listaColaboradores(){
+    /* Lista todos os colaboradores pra preencher o combo */
     this.apiService.getColaboradores().subscribe((data) => {
      this.colaboradores = data;
      this.colaboradores = this.colaboradores.colaboradores;
-     console.log(this.colaboradores);
     })    
   }
 
   listaSalas(){
+    /* Lista todas as salas para ser usada pela função getDisponiveis() */
     this.apiService.getSalas().subscribe((data) => {
      this.salas = data;
      this.salas = this.salas.salas;
-     console.log(this.salas);
-     this.getDisponiveis();
     })    
   }
 
   listaAgendamentos(){
-    this.apiService.getAgendamentos().subscribe((data) => {
+    /* Retorna os agendamentos filtrados na API pela hora inicial e final */
+
+    this.spinner.show();
+
+    let data
+    data = {
+      hora_inicio: this.hora_inicio,
+      hora_fim: this.hora_fim
+    }
+    this.apiService.getAgendamento(data).subscribe((data) => {
       this.agendamentos = data;
-      this.agendamentos = this.agendamentos.agendamento;
-      console.log(this.agendamentos);
+      this.getDisponiveis();
     })    
   }
 
   getDisponiveis(){
+    /* Retorna o array de agendamentos pré filtrados, verifica quais das salas, não está nesse array e filtra por itens da sala (computador, projetor e video) e data */
+    
     let data
     data = {
-      colaborador_id: this.colaborador_id, 
       sala_id: this.sala_id,
-      data_reserva: this.pipe.transform(this.dataAgendamento, 'dd/MM/yyyy'),
+      data_reserva: this.dataAgendamento,
       hora_inicio: this.hora_inicio,
       hora_fim: this.hora_fim,
       computador: this.checkboxComp,
       projetor: this.checkboxProj,
       video: this.checkboxVideo
     }
-    console.log(data)
-    /* $record[$data_reserva] != $data['data_reserva'] && ($record[$hora_inicio] >= $data['hora_inicio'] && $record[$hora_fim] <= $data['hora_fim']) && $record[$computador] == $data['computador'] && $record[$projetor] == $data['projetor'] && $record[$video] == $data['video'] */
-    this.salas_filtro = this.salas.filter(function(room) {
+
+    this.agendamentos.forEach(element => {
+      this.salas_filtro = this.salas.filter(function(room) {
+        return (room.id != element.sala_id && element.data_reserva == data.data_reserva);
+      });
+    });
+    
+    this.salas_filtro = this.salas_filtro.filter(function(room) {
       return (room.computador == data.computador || room.projetor == data.projetor || room.video == data.video);
     });
+    
+    setTimeout(() => {
+      /** spinner ends after 3 seconds */
+      this.spinner.hide();
+    }, 3000);
+  }
 
-    /* this.salas_disponiveis = this.agendamentos.filter(function(room) {
-      return (room.id == this.salas_filtro.id);
+  salvarAgendamento(){
+    this.spinner.show();
+
+    this.agendamentoFinal = {
+      colaborador_id: this.colaborador_id, 
+      sala_id: this.sala_id,
+      data_reserva: this.dataAgendamento,
+      hora_inicio: this.hora_inicio,
+      hora_fim: this.hora_fim,
+    };
+
+    this.apiService.createAgendamento(this.agendamentoFinal).subscribe(
+      (res) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Salvo com sucesso!',
+          showConfirmButton: false,
+          timer: 1500
+        })
+
+        setTimeout(() => {
+          /** spinner ends after 3 seconds */
+          this.spinner.hide();
+        }, 3000);
+        
+        /* Limpando as variáveis do formulário: */
+        this.salas_filtro = []
+        this.agendamentoFinal = {}
+        this.checkboxComp = false,
+        this.checkboxProj = false,
+        this.checkboxVideo = false
+
+      }, (error) => {
+        console.log(error);
     });
- */
-    this.salas_disponiveis = this.salas_filtro.filter(function(room) {
-      return (room.data_reserva == data.data_reserva && (room.hora_inicio < data.hora_inicio && room.hora_fim < data.hora_fim) && room.id == this.salas_agendamento.sala_id);
-    });
-    /* this.salas_disponiveis = this.agendamentos.filter(function(room) {
-      return room.id == this.salas_filtro.id;
-    }); */
-    var novoarray = this.salas_filtro.filter(function(a){return a.id != 2});
-    console.log(this.salas_disponiveis)
   }
 }

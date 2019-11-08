@@ -106,9 +106,9 @@ export class ApiService {
     return this.http.get(`${this.baseUri}/agendamentos`);
   }
   
-  getAgendamento(id): Observable<any> {
-    let url = `${this.baseUri}/agendamento/${id}`;
-    return this.http.get(url, {headers: this.headers}).pipe(
+  getAgendamento(data): Observable<any> {
+    let url = `${this.baseUri}/agendamento-filter`;
+    return this.http.post(url, data, {headers: this.headers}).pipe(
       map((res: Response) => {
         return res || {}
       }),

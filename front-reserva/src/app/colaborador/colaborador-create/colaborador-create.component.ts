@@ -3,6 +3,7 @@ import { ApiService } from './../../service/api.service';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-colaborador-create',
@@ -14,7 +15,7 @@ export class ColaboradorCreateComponent implements OnInit {
   submitted = false;
   colaboradorForm: FormGroup;
 
-  constructor(public fb: FormBuilder, private router: Router, private ngZone: NgZone, private apiService: ApiService) {
+  constructor(public fb: FormBuilder, private router: Router, private ngZone: NgZone, private apiService: ApiService, private spinner: NgxSpinnerService) {
     this.mainForm();
   }
 
@@ -24,7 +25,7 @@ export class ColaboradorCreateComponent implements OnInit {
   mainForm() {
     this.colaboradorForm = this.fb.group({
       nome: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      email: ['', [Validators.required]],
       telefone: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]
     })
   }
@@ -39,8 +40,14 @@ export class ColaboradorCreateComponent implements OnInit {
     if (!this.colaboradorForm.valid) {
       return false;
     } else {
+      this.spinner.show();
+      
       this.apiService.createEmployee(this.colaboradorForm.value).subscribe(
         (res) => {
+          setTimeout(() => {
+            /** spinner ends after 3 seconds */
+            this.spinner.hide();
+          }, 3000);
           Swal.fire({
             icon: 'success',
             title: 'Salvo com sucesso!',

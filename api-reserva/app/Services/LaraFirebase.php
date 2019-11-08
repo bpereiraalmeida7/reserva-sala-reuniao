@@ -87,15 +87,9 @@ class LaraFirebase
      *
      * @return mixed
      */
-    public function getRecords(){
+    public function getRecords()
+    {
         return $this->database->getReference($this->table)->getValue();
-
-       /*  $array1 = $this->database->getReference($this->table)->orderByChild('hora_inicio')->startAt('09:00')->endAt('11:00')->getValue();
-        $array2 = $this->database->getReference($this->table)->orderByChild('hora_fim')->startAt('09:00')->endAt('11:00')->getValue();
-        print_r($array1);
-        print_r($array2); */
-        
-        //return array_merge($array1, $array2);
     }
 
     /**
@@ -127,11 +121,9 @@ class LaraFirebase
     public function insertRecord(array $data, $returnData = false)
     {
         $countedRecords = 0;
-        if($this->getRecords() > 0){
             if(count($this->getRecords()) > 0){
                 $countedRecords = count($this->getRecords());
             }
-        }
         
         $data[$this->primaryKey] = $countedRecords > 1 ? $countedRecords + 1 : 1;
         $this->database->getReference()
@@ -196,26 +188,17 @@ class LaraFirebase
         return false;
     }
 
-    public function getRecordFilter(array $data, $returnData = false)
+    /* Na função abaixo, ele utiliza os dados de hora inicial e final para fazer o filtro e retorna o merge dos dois arrays. O resultado do merge volta para o component do Angular, onde é tratado com o restante do filtro.
+    O firebase não conta com queries tão elaboradas como o sql relacional, por isso desta forma fica mais fácil de tratar. A lógica abaixo é equivalente a query SQL com "WHERE 'condicao' OR 'condicao'" */
+    public function getRecordFilter($array)
     {
-        $data_reserva = Agendamento::getDataReserva();
-        $hora_inicio = Agendamento::getHoraInicio();
-        $hora_fim = Agendamento::getHoraFim();
-        $computador = Agendamento::getComputador();
-        $projetor = Agendamento::getProjetor();
-        $video = Agendamento::getVideo();
-
-
-        foreach ($this->getRecords() as $key => $record) {
-            if ($record[$data_reserva] != $data['data_reserva'] && ($record[$hora_inicio] >= $data['hora_inicio'] && $record[$hora_fim] <= $data['hora_fim']) && $record[$computador] == $data['computador'] && $record[$projetor] == $data['projetor'] && $record[$video] == $data['video']) {
-                $result .= $record; 
-                return $result;
-            }else{
-                return $result = null;
-            }
-        }
-
-        return null;
+        $horaInicio = $array['hora_inicio']; 
+        $horaFim = $array['hora_fim'];
+        
+        $array1 = $this->database->getReference($this->table)->orderByChild('hora_inicio')->startAt($horaInicio)->endAt($horaFim)->getValue();
+        $array2 = $this->database->getReference($this->table)->orderByChild('hora_fim')->startAt($horaInicio)->endAt($horaFim)->getValue();
+        
+        return array_merge($array1, $array2);
     }
 }
 

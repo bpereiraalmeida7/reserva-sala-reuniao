@@ -34,3 +34,4 @@ Route::get('/agendamento/{id}', 'AgendamentoController@show');
 Route::post('/agendamento-post', 'AgendamentoController@store');
 Route::put('/agendamento-up/{id}', 'AgendamentoController@update');
 Route::delete('/agendamento-del/{id}', 'AgendamentoController@destroy');
+Route::post('/agendamento-filter', 'AgendamentoController@filterHora');
