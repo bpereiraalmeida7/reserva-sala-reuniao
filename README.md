@@ -8,9 +8,9 @@ Ao inserir um novo agendamento, ele irá filtrar as salas disponiveis de acordo 
 
 ###### O sistema
 
-Este sistema foi desenvolvido com duas tecnologias atuais, uma para o frontend (Angular 8), e outra para o backend (Laravel 6), sendo esta última desenvolvida no formato API RestFull. Para entender os requisitos e processo de instalação de cada framework e suas bibliotecas, segue o guia de cada um:
+Este sistema foi desenvolvido com duas tecnologias atuais, uma para o frontend (Angular 8), e outra para o backend (Laravel 6), sendo esta última desenvolvida no formato API RestFull. Para entender os requisitos e processo de instalação de cada framework e suas bibliotecas, segue o guia (Readme) de cada um:
 
 * front-reserva - [(Angular)](https://github.com/bpereiraalmeida7/reserva-sala-reuniao/blob/master/front-reserva/README.md)
 * api-reserva - [(Laravel)](https://github.com/bpereiraalmeida7/reserva-sala-reuniao/blob/master/api-reserva/README.md)
 
-### [Wiki](https://github.com/bpereiraalmeida7/reserva-sala-reuniao/wiki)
+### [Mais sobre o projeto - Wiki](https://github.com/bpereiraalmeida7/reserva-sala-reuniao/wiki)
