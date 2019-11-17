@@ -121,11 +121,11 @@ class LaraFirebase
     public function insertRecord(array $data, $returnData = false)
     {
         $countedRecords = 0;
-            if(count($this->getRecords()) > 0){
-                $countedRecords = count($this->getRecords());
-            }
-        
-        $data[$this->primaryKey] = $countedRecords > 1 ? $countedRecords + 1 : 1;
+        if($this->getRecords() != null){
+            $countedRecords = count($this->getRecords());
+        }
+       
+        $data[$this->primaryKey] = $countedRecords > 0 ? $countedRecords + 1 : 1;
         $this->database->getReference()
             ->getChild($this->table)
             ->getChild($countedRecords)

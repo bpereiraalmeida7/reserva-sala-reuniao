@@ -146,12 +146,16 @@ export class AgendamentoComponent implements OnInit {
 
     this.agendamentos.forEach(element => {
       this.salas_filtro = this.salas.filter(function(room) {
-        return (room.id != element.sala_id && element.data_reserva == data.data_reserva);
+        return ((room.id != element.sala_id) || (room.id == element.sala_id && element.data_reserva != data.data_reserva));
       });
     });
     
-    this.salas_filtro = this.salas_filtro.filter(function(room) {
-      return (room.computador == data.computador || room.projetor == data.projetor || room.video == data.video);
+    this.salas_filtro = this.salas_filtro.filter(function(roomFilt) {
+      if(data.computador == false && data.projetor == false && data.video == false){
+        return (roomFilt.computador == false || roomFilt.projetor == false || roomFilt.video == false);
+      }else{
+        return ((roomFilt.computador == data.computador && roomFilt.projetor == data.projetor && roomFilt.video == data.video));
+      }
     });
     
     setTimeout(() => {

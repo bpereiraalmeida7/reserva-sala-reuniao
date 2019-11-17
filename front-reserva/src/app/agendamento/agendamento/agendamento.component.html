@@ -31,15 +31,15 @@ type = "ball-clip-rotate-pulse"
                         </div>
                     </div>
                     <div class="form-check form-check">
-                        <input class="form-check-input" type="checkbox" [value]="checkboxComp" (change)="toggleVisibility($event, 'comp')" id="inlineCheckbox1" value="opcao1">
+                        <input class="form-check-input" type="checkbox" [(value)]="checkboxComp" (change)="toggleVisibility($event, 'comp')" id="inlineCheckbox1">
                         <label class="form-check-label" for="inlineCheckbox1">Computador</label>
                     </div>
                     <div class="form-check form-check">
-                        <input class="form-check-input" type="checkbox"  [value]="checkboxProj" (change)="toggleVisibility($event, 'projetor')" id="inlineCheckbox2" value="opcao2">
+                        <input class="form-check-input" type="checkbox"  [(value)]="checkboxProj" (change)="toggleVisibility($event, 'projetor')" id="inlineCheckbox2">
                         <label class="form-check-label" for="inlineCheckbox2">Projetor</label>
                     </div>
                     <div class="form-check form-check">
-                        <input class="form-check-input" type="checkbox"  [value]="checkboxVideo" (change)="toggleVisibility($event, 'video')" id="inlineCheckbox3" value="opcao3">
+                        <input class="form-check-input" type="checkbox"  [(value)]="checkboxVideo" (change)="toggleVisibility($event, 'video')" id="inlineCheckbox3">
                         <label class="form-check-label" for="inlineCheckbox3">Sistema para videoconferência<br></label>
                     </div>
                     <div class="form-group right">
