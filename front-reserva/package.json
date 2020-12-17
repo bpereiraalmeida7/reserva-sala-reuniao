@@ -25,7 +25,7 @@
     "angular-datatables": "^8.0.0",
     "angular2-text-mask": "^9.0.0",
     "bootstrap": "^4.3.1",
-    "datatables.net": "^1.10.20",
+    "datatables.net": "^1.10.22",
     "datatables.net-dt": "^1.10.20",
     "jquery": "^3.4.1",
     "ngx-spinner": "^8.0.3",
